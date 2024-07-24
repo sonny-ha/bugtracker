@@ -58,7 +58,7 @@ public class CsvRepository implements BugTrackerRepository {
         boolean found = false;
 
         try {
-            String filePath = "target/classes/" + env.getProperty(BUGTRACKER_CSV_FILENAME_PROPERTY);
+            String filePath = "classpath:" + env.getProperty(BUGTRACKER_CSV_FILENAME_PROPERTY);
             Reader reader = fileService.getReader(filePath);
             Iterable<CSVRecord> records = getCSVRecords(filePath, reader);
 
@@ -118,7 +118,7 @@ public class CsvRepository implements BugTrackerRepository {
             ticketEntity = new TicketEntity(id, ticket.parentId(), ticket.description(), Status.OPEN, ticket.link(), localDateTime);
             
             String csvFileName = env.getProperty(BUGTRACKER_CSV_FILENAME_PROPERTY);
-            String path = "target/classes/" + csvFileName;
+            String path = "classpath:" + csvFileName;
             File file = fileService.getFile(path);
             
             CSVPrinter csvPrinter = getCSVPrinter(file, path);
